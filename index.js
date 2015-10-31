@@ -12,18 +12,19 @@ module.exports = function(es) {
     http.prototype.createAgent.call(this,config);
   };
 
-  aws.prototype.request = function(params) {
+  aws.prototype.makeReqParams = function (params) {
+    params = http.prototype.makeReqParams.call(this,params);
+    
     var config = this._amazonES;
     params.service =  config.service || 'es';
     params.region = config.region || 'us-east-1';
-    params.headers = {'Content-Type' : 'application/json'};
     
     aws4.sign(params,{
       accessKeyId: config.accessKey || process.env.AWS_ACCESS_KEY_ID,
       secretAccessKey: config.secretKey || process.env.AWS_SECRET_ACCESS_KEY
     });
     
-    return http.prototype.request.apply(this,arguments);
+    return params;
   };
 
   pool.defaultConnectionClass = 'aws';

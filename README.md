@@ -37,9 +37,13 @@ module.exports = function(es) {
     http.prototype.createAgent.call(this,config);
   };
 
-  aws.prototype.makeReqParams = function (params) {
-    params = http.prototype.makeReqParams.call(this,params);
-    
+  aws.prototype.makeReqParams = function (_params) {
+    var params = http.prototype.makeReqParams.call(this,_params);
+    params.body = _params.body;
+    params.headers = params.headers || {};
+    params.headers['Content-Type'] = params.headers['Content-Type'] || 'application/json';
+    if (params.gzip === undefined) params.gzip = true;
+
     var config = this._amazonES;
     params.service =  config.service || 'es';
     params.region = config.region || 'us-east-1';

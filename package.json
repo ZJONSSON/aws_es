@@ -1,6 +1,6 @@
 {
   "name": "aws_es",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,6 @@
   "author": "Ziggy Jonsson https://github.com/ZJONSSON",
   "license": "MIT",
   "dependencies": {
-    "aws4": "^1.1.0"
+    "aws4": "~1.2.1"
   }
 }
